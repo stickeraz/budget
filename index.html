@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            padding-bottom: 30px;
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .submit-btn {
+            background: black;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background 0.3s, color 0.3s, border 0.3s;
+        }
+        .submit-btn:hover {
+            background: white;
+            color: black;
+            border: 2px solid black;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const form = document.getElementById('Form');
+            const typeSelect = document.getElementById('type');
+            const sourceSelect = document.getElementById('source');
+            const categorySelect = document.getElementById('category');
+
+            const categories = {
+                income: {
+                    personal: ["Monthly salary", "Bonus", "Compensated"],
+                    business: ["Goods", "Services"]
+                },
+                spending: {
+                    personal: ["Rental", "Food", "Wifi"],
+                    business: ["Outsource", "Consumable", "Shipping"]
+                }
+            };
+
+            function updateCategories() {
+                const type = typeSelect.value;
+                const source = sourceSelect.value;
+
+                if (type && source) {
+                    const options = categories[type][source];
+                    categorySelect.innerHTML = '<option value="" disabled selected>Select category</option>';
+                    options.forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option;
+                        opt.textContent = option;
+                        categorySelect.appendChild(opt);
+                    });
+                }
+            }
+
+            typeSelect.addEventListener('change', updateCategories);
+            sourceSelect.addEventListener('change', updateCategories);
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const formData = new FormData(form);
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                }).then(response => response.text())
+                .then(result => {
+                    alert('Thank you! Your payment has been recorded.');
+                    window.location.href = 'https://stickeraz.github.io/task/';
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Tracker</h1>
+        <form id="Form" action="https://script.google.com/macros/s/AKfycbzxWfRvT2NP2_Ve7uFkrPbcD-agw6aVivo--eCcsDLA6et5OGAm9x8cnG13YVpFW9BE/exec" method="post">
+            <div class="form-group">
+                <input type="text" id="description" name="description" placeholder="Enter payment description" required>
+            </div>
+            <div class="form-group">
+                <input type="number" id="amount" name="amount" placeholder="Enter amount" required>
+            </div>
+            <div class="form-group">
+                <select id="type" name="type" required>
+                    <option value="" disabled selected>Select type</option>
+                    <option value="income">Income</option>
+                    <option value="spending">Spending</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select id="source" name="source" required>
+                    <option value="" disabled selected>Select source</option>
+                    <option value="personal">Personal</option>
+                    <option value="business">Business</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select id="category" name="category" required>
+                    <option value="" disabled selected>Select category</option>
+                </select>
+            </div>
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
