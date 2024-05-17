@@ -103,7 +103,7 @@
                 }).then(response => response.text())
                 .then(result => {
                     alert('Thank you! Your payment has been recorded.');
-                    window.location.href = 'https://stickeraz.github.io/task/';
+                    window.location.href = 'https://stickeraz.github.io/budget/';
                 }).catch(error => {
                     console.error('Error:', error);
                 });
@@ -114,7 +114,7 @@
 <body>
     <div class="container">
         <h1>Payment Tracker</h1>
-        <form id="Form" action="https://script.google.com/macros/s/AKfycbzxWfRvT2NP2_Ve7uFkrPbcD-agw6aVivo--eCcsDLA6et5OGAm9x8cnG13YVpFW9BE/exec" method="post">
+        <form id="Form" action="https://script.google.com/macros/s/AKfycbwcRDDbPU1d3HGJq12rb649vIdGtL86qfSeIIxdo_a263ufZr8lLFqLvJXsTT_rm3F6/exec" method="post">
             <div class="form-group">
                 <input type="text" id="description" name="description" placeholder="Enter payment description" required>
             </div>
