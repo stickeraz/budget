@@ -39,6 +39,12 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
+            appearance: none; /* Remove default arrow in some browsers */
+            -webkit-appearance: none; /* Remove default arrow in Safari and Chrome */
+            -moz-appearance: none; /* Remove default arrow in Firefox */
+            background-color: white;
+            color: black;
+            height: auto;
         }
         input[type="number"] {
             -moz-appearance: textfield;
@@ -47,6 +53,13 @@
         input[type="number"]::-webkit-inner-spin-button {
             -webkit-appearance: none;
             margin: 0;
+        }
+        select {
+            background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position-x: 100%;
+            background-position-y: 50%;
+            padding-right: 30px; /* Add some padding for the custom arrow */
         }
         .submit-btn {
             background: black;
