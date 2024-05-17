@@ -111,6 +111,22 @@
                 amountInput.value = value;
             });
 
+            // Ensure default text is shown on Safari iOS
+            const selects = [typeSelect, sourceSelect, categorySelect];
+            selects.forEach(select => {
+                select.addEventListener('focus', () => {
+                    if (select.value === '') {
+                        select.selectedIndex = -1;
+                    }
+                });
+
+                select.addEventListener('blur', () => {
+                    if (select.value === '') {
+                        select.selectedIndex = 0;
+                    }
+                });
+            });
+
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
                 const formData = new FormData(form);
